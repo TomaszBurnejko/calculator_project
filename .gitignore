@@ -1,0 +1,4 @@
+/output.xml
+__pycache__/
+*.pyc
+*.log
