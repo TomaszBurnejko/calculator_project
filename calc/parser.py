@@ -12,12 +12,11 @@ def parse_expression(tokens: list) -> float:
         token = tokens.pop(0)
         if token.isdigit():
             return float(token)
-        elif token == '(':
+        if token == '(':
             result = parse_expression(tokens)
             tokens.pop(0)  # remove closing parenthesis
             return result
-        else:
-            raise ValueError(f"Unexpected token: {token}")
+        raise ValueError(f"Unexpected token: {token}")
 
     def parse_term(tokens):
         result = parse_factor(tokens)
