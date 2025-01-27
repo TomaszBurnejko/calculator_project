@@ -1,5 +1,11 @@
 # Python Calculator
 
+## Run
+
+```shell
+streamlit run main.py 
+```
+
 ## Setup
 
 ### Dependencies
