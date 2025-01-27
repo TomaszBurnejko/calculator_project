@@ -41,4 +41,3 @@ deactivate
 ```shell
 pytest
 ```
-
