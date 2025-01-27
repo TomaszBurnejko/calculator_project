@@ -1,6 +1,6 @@
 import re
 
-def tokenize(expression: list) -> list:
+def tokenize(expression: str) -> list:
     tokens = re.findall(r'\d+\.?\d*|[()+\-*/]', expression)
     return tokens
 
