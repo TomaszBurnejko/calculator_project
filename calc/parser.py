@@ -1,24 +1,24 @@
 import re
 
-def tokenize(expression: str) -> list:
+def tokenize(expression: str) -> list[str]:
     tokens = re.findall(r'\d+\.?\d*|[()+\-*/]', expression)
     return tokens
 
-def parse_expression(tokens: list) -> float:
+def parse_expression(tokens: list[str]) -> float:
     if not tokens:
         return 0
 
-    def parse_factor(tokens: list):
+    def parse_factor(tokens: list[str]) -> float:
         token = tokens.pop(0)
-        if token.isdigit():
+        if token.replace('.','',1).isnumeric():
             return float(token)
         if token == '(':
             result = parse_expression(tokens)
-            tokens.pop(0)  # remove closing parenthesis
+            tokens.pop(0)
             return result
         raise ValueError(f"Unexpected token: {token}")
 
-    def parse_term(tokens):
+    def parse_term(tokens: list[str]) -> float:
         result = parse_factor(tokens)
 
         while tokens and tokens[0] in ['*', '/']:
