@@ -47,3 +47,9 @@ deactivate
 ```shell
 pytest
 ```
+
+### Robot
+
+```shell
+robot test 
+```
