@@ -1,2 +1,6 @@
 pytest
 streamlit
+robotframework
+robotframework-SeleniumLibrary
+selenium
+coverage
