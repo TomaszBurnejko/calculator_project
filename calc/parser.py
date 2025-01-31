@@ -1,7 +1,10 @@
 import re
+import math
 
 def tokenize(expression: str) -> list[str]:
-    tokens = re.findall(r'\d+\.?\d*|[()+\-*/]', expression)
+    expression = re.sub(r'(\d)\s*\(', r'\1*(', expression)
+    expression = re.sub(r'\√', 'sqrt', expression)
+    tokens = re.findall(r'sqrt|\d+\.?\d*|[()+\-*/^]', expression)
     return tokens
 
 def parse_expression(tokens: list[str]) -> float:
@@ -12,6 +15,8 @@ def parse_expression(tokens: list[str]) -> float:
         token = tokens.pop(0)
         if token.replace('.','',1).isnumeric():
             return float(token)
+        if token == 'sqrt':
+            return math.sqrt(parse_factor(tokens))
         if token == '(':
             result = parse_expression(tokens)
             tokens.pop(0)
@@ -21,12 +26,14 @@ def parse_expression(tokens: list[str]) -> float:
     def parse_term(tokens: list[str]) -> float:
         result = parse_factor(tokens)
 
-        while tokens and tokens[0] in ['*', '/']:
+        while tokens and tokens[0] in ['*', '/', '^']:
             operator = tokens.pop(0)
             if operator == '*':
                 result *= parse_factor(tokens)
-            else:
+            elif operator == '/':
                 result /= parse_factor(tokens)
+            elif operator == '^':
+                result = math.pow(result, parse_factor(tokens))
 
         return result
 
