@@ -1,21 +1,37 @@
 @startuml
 
-class Parser {
-    + tokenized_expression: list[str]
-    + tokenize(expression: str) : list[str]
-    + parse_expression(tokens: list[str]) : float
+package "calc" {
+    class parser <<module>> {
+        + tokenize(expression: str) : list[str]
+        + parse_expression(tokens: list[str]) : float
+    }
+}
+package "app" {
+    class CalculatorApp {
+        + equation_string: str
+        + display_result() : void
+    }
+}
+package "dependencies" {
+    class Streamlit <<library>>
+    class Selenium <<library>>
 }
 
-class CalculatorApp {
-    + equation_string: str
-    + display_result()
+package "tests" {
+    class TestParser <<module>> {
+        + test_tokenize()
+        + test_parse_expression()
+    }
+    class TestRobotFramework <<module>> {
+        + Use Calculator One
+        + Use Calculator Two
+        + Use Calculator Three
+        + Use Calculator Four
+        + Use Calculator Five
+    }
 }
-
-class Streamlit <<library>>
-class Math <<library>>
-
-Parser --|> Math
-CalculatorApp --> Parser
-CalculatorApp --> Streamlit
+CalculatorApp --> parser : uses
+CalculatorApp --> Streamlit : uses
+TestParser --> parser : tests
 
 @enduml
