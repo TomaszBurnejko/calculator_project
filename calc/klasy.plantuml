@@ -7,7 +7,7 @@ package "calc" {
     }
 }
 package "app" {
-    class CalculatorApp {
+    class CalculatorApp <<module>> {
         + equation_string: str
         + display_result() : void
     }
